@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static class PlaceholderFragment extends Fragment {
 
+        ArrayAdapter<String> mForecastAdapter;
+
         public PlaceholderFragment() {
         }
 
@@ -68,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
                     "Sun 6/29 - Sunny - 20/7"
             };
             List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+
+            // Now that we have some dummy forecast data, create an ArrayAdapter.
+            // The ArrayAdapter will take data from a source (like our dummy forecast) and
+            // use it to populate the ListView it's attached to.
+            mForecastAdapter =
+                    new ArrayAdapter<String>(
+                            getActivity(), // The current context (this activity)
+                            R.layout.list_item_forecast, // The name of the layout ID.
+                            R.id.list_item_forecast_textview, // The ID of the textview to populate.
+                            weekForecast);
+
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
